@@ -1,0 +1,80 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink=".">Servidor Publicos</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Registros</li>
+    </ol>
+  </nav>
+  
+  
+  
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">REGISTRO DE SERVIDORES PÚBLICOS</h6>
+          <div class="row">
+            <div class="col-xl-3 col-md-4">
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                placeholder="Busqueda por CURP"
+                (keyup)="updateFilter($event)"
+              />
+            </div>
+          </div>
+          <div class="table-responsive">
+            <ngx-datatable
+            #table
+            class="bootstrap"
+            [rows]="listProduct"
+            [loadingIndicator]="loadingIndicator"
+            [columnMode]="ColumnMode.force"
+            [footerHeight]="50"
+            [limit]="10"
+            rowHeight="auto"
+          >
+          
+            <ngx-datatable-column name="NOMBRE">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.nombre + ' ' + row.primer_apellido + ' ' + (row.segundo_apellido || '') }}
+              </ng-template>
+            </ngx-datatable-column>
+          
+            <ngx-datatable-column name="CURP">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.curp }}
+              </ng-template>
+            </ngx-datatable-column>
+          
+            <ngx-datatable-column name="DEPENDENCIA">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.rfc }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="DIRECCION">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.rfc }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="MOVIMIENTOS">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button (click)="onDelete()" class="btn btn-danger">Movimientos</button>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="ACCIONES">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button (click)="onEdit()" class="btn btn-primary">Editar</button>
+                <button (click)="onDelete()" class="btn btn-danger">Eliminar</button>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
