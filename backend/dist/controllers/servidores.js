@@ -11,8 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReadServidor = void 0;
 const servidor_1 = require("../models/servidor");
+const dependencia_1 = require("./../models/dependencia");
 const ReadServidor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const listServidor = yield servidor_1.Servidor.findAll();
+    const listServidor = yield servidor_1.Servidor.findAll({
+        include: [
+            {
+                model: dependencia_1.Dependencia,
+                as: 'dependencia'
+            }
+        ]
+    });
     res.json(listServidor);
 });
 exports.ReadServidor = ReadServidor;

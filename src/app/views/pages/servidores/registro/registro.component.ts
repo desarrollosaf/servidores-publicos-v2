@@ -38,6 +38,7 @@ export class RegistroComponent {
   getServidores() {
     this._servidorService.getServidores().subscribe(data => {
       this.listProduct = data
+      console.log(this.listProduct)
       this.temp = [...data];
     })
 
@@ -49,7 +50,7 @@ export class RegistroComponent {
     const temp = this.temp.filter(function(d: any) {
       return d.curp.toLocaleLowerCase().indexOf(val) !== -1 || !val;
     })
-    
+
     this.listProduct = temp;
     this.table.offset = 0;
   }

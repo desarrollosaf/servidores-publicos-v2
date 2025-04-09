@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/connection";
+import { Dependencia } from "./dependencia";
 
 export const Servidor = sequelize.define("servidores_publicos", {
     id: { type: DataTypes.BIGINT.UNSIGNED, primaryKey: true, autoIncrement: true },
@@ -13,7 +14,7 @@ export const Servidor = sequelize.define("servidores_publicos", {
     cargo: { type: DataTypes.STRING(191), allowNull: false },
     nivel_cargo: { type: DataTypes.STRING(191), allowNull: false },
     cve_issemym: { type: DataTypes.STRING(191), allowNull: true, defaultValue: null },
-    tipo_dependencia: { type: DataTypes.BIGINT.UNSIGNED, allowNull: false },
+    tipo_dependencia: { type: DataTypes.BIGINT.UNSIGNED, references: {  model: Dependencia, key: 'id' },  allowNull: false },
     tipo_direccion: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     tipo_departamento: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     honorarios: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
@@ -31,5 +32,6 @@ export const Servidor = sequelize.define("servidores_publicos", {
     deleted_at: { type: DataTypes.DATE, allowNull: true, defaultValue: null },
   }, {
     timestamps: false,  // Desactiva `createdAt` y `updatedAt`
-  });
+});
   
+Servidor.belongsTo(Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });

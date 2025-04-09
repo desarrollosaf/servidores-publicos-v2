@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Servidor = void 0;
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../database/connection"));
+const dependencia_1 = require("./dependencia");
 exports.Servidor = connection_1.default.define("servidores_publicos", {
     id: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, primaryKey: true, autoIncrement: true },
     nombre: { type: sequelize_1.DataTypes.STRING(191), allowNull: false },
@@ -18,7 +19,7 @@ exports.Servidor = connection_1.default.define("servidores_publicos", {
     cargo: { type: sequelize_1.DataTypes.STRING(191), allowNull: false },
     nivel_cargo: { type: sequelize_1.DataTypes.STRING(191), allowNull: false },
     cve_issemym: { type: sequelize_1.DataTypes.STRING(191), allowNull: true, defaultValue: null },
-    tipo_dependencia: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: false },
+    tipo_dependencia: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, references: { model: dependencia_1.Dependencia, key: 'id' }, allowNull: false },
     tipo_direccion: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     tipo_departamento: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     honorarios: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
@@ -37,3 +38,4 @@ exports.Servidor = connection_1.default.define("servidores_publicos", {
 }, {
     timestamps: false, // Desactiva `createdAt` y `updatedAt`
 });
+exports.Servidor.belongsTo(dependencia_1.Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });
