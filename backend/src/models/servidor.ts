@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database/connection";
 import { Dependencia } from "./dependencia";
+import { Direccion } from "./direccion";
+import { Departamento } from "./departamento";
 
 export const Servidor = sequelize.define("servidores_publicos", {
     id: { type: DataTypes.BIGINT.UNSIGNED, primaryKey: true, autoIncrement: true },
@@ -15,8 +17,8 @@ export const Servidor = sequelize.define("servidores_publicos", {
     nivel_cargo: { type: DataTypes.STRING(191), allowNull: false },
     cve_issemym: { type: DataTypes.STRING(191), allowNull: true, defaultValue: null },
     tipo_dependencia: { type: DataTypes.BIGINT.UNSIGNED, references: {  model: Dependencia, key: 'id' },  allowNull: false },
-    tipo_direccion: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
-    tipo_departamento: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
+    tipo_direccion: { type: DataTypes.BIGINT.UNSIGNED, references: {  model: Direccion, key: 'id' },  allowNull: false },
+    tipo_departamento: { type: DataTypes.BIGINT.UNSIGNED, references: {  model: Departamento, key: 'id' },  allowNull: false },
     honorarios: { type: DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     c_institucional: { type: DataTypes.STRING(191), allowNull: true, defaultValue: null },
     c_personal: { type: DataTypes.STRING(191), allowNull: true, defaultValue: null },
@@ -35,3 +37,4 @@ export const Servidor = sequelize.define("servidores_publicos", {
 });
   
 Servidor.belongsTo(Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });
+Servidor.belongsTo(Direccion, { foreignKey: 'tipo_direccion', as: 'direccion' });

@@ -12,12 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReadServidor = void 0;
 const servidor_1 = require("../models/servidor");
 const dependencia_1 = require("./../models/dependencia");
+const direccion_1 = require("./../models/direccion");
 const ReadServidor = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const listServidor = yield servidor_1.Servidor.findAll({
         include: [
             {
                 model: dependencia_1.Dependencia,
                 as: 'dependencia'
+            },
+            {
+                model: direccion_1.Direccion,
+                as: 'direccion'
             }
         ]
     });

@@ -7,6 +7,8 @@ exports.Servidor = void 0;
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../database/connection"));
 const dependencia_1 = require("./dependencia");
+const direccion_1 = require("./direccion");
+const departamento_1 = require("./departamento");
 exports.Servidor = connection_1.default.define("servidores_publicos", {
     id: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, primaryKey: true, autoIncrement: true },
     nombre: { type: sequelize_1.DataTypes.STRING(191), allowNull: false },
@@ -20,8 +22,8 @@ exports.Servidor = connection_1.default.define("servidores_publicos", {
     nivel_cargo: { type: sequelize_1.DataTypes.STRING(191), allowNull: false },
     cve_issemym: { type: sequelize_1.DataTypes.STRING(191), allowNull: true, defaultValue: null },
     tipo_dependencia: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, references: { model: dependencia_1.Dependencia, key: 'id' }, allowNull: false },
-    tipo_direccion: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
-    tipo_departamento: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
+    tipo_direccion: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, references: { model: direccion_1.Direccion, key: 'id' }, allowNull: false },
+    tipo_departamento: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, references: { model: departamento_1.Departamento, key: 'id' }, allowNull: false },
     honorarios: { type: sequelize_1.DataTypes.BIGINT.UNSIGNED, allowNull: true, defaultValue: null },
     c_institucional: { type: sequelize_1.DataTypes.STRING(191), allowNull: true, defaultValue: null },
     c_personal: { type: sequelize_1.DataTypes.STRING(191), allowNull: true, defaultValue: null },
@@ -39,3 +41,4 @@ exports.Servidor = connection_1.default.define("servidores_publicos", {
     timestamps: false, // Desactiva `createdAt` y `updatedAt`
 });
 exports.Servidor.belongsTo(dependencia_1.Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });
+exports.Servidor.belongsTo(direccion_1.Direccion, { foreignKey: 'tipo_direccion', as: 'direccion' });

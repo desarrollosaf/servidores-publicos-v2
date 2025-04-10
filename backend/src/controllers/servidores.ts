@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt'
 import { Servidor } from '../models/servidor'
 import { Op } from 'sequelize'
 import jwt from 'jsonwebtoken'
-
 import { Dependencia } from "./../models/dependencia";
+import { Direccion } from "./../models/direccion";
 
 
 export const ReadServidor = async (req: Request, res: Response) => {
@@ -13,6 +13,10 @@ export const ReadServidor = async (req: Request, res: Response) => {
             {
                 model: Dependencia, 
                 as : 'dependencia'
+            },
+            {
+                model: Direccion, 
+                as : 'direccion'
             }
         ]
     }); 

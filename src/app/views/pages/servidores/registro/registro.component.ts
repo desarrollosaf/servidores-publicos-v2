@@ -1,9 +1,10 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild, inject, TemplateRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ColumnMode, DatatableComponent, NgxDatatableModule } from '@siemens/ngx-datatable';
 import { Servidores } from '../../../../interfaces/servidores';
 import { ServidoresService } from '../../../../service/servidores.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registro',
@@ -26,7 +27,7 @@ export class RegistroComponent {
 
   @ViewChild('table') table: DatatableComponent
 
-  constructor(private router: Router,) {
+  constructor(private router: Router,private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -38,7 +39,6 @@ export class RegistroComponent {
   getServidores() {
     this._servidorService.getServidores().subscribe(data => {
       this.listProduct = data
-      console.log(this.listProduct)
       this.temp = [...data];
     })
 
@@ -61,6 +61,24 @@ export class RegistroComponent {
 
   onDelete(): void {
     console.log('Eliminando: ', );
+  }
+
+  openXlModal(content: TemplateRef<any>) {
+    this.modalService.open(content, {size: 'xl'}).result.then((result) => {
+      console.log("Modal closed" + result);
+    }).catch((res) => {});
+  }
+
+  openLgModal(content: TemplateRef<any>) {
+    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
+      console.log("Modal closed" + result);
+    }).catch((res) => {});
+  }
+  
+  openSmModal(content: TemplateRef<any>) {
+    this.modalService.open(content, {size: 'sm'}).result.then((result) => {
+      console.log("Modal closed" + result);
+    }).catch((res) => {});
   }
 
 }
