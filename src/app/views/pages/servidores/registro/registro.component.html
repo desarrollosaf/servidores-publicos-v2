@@ -60,7 +60,7 @@
 
             <ngx-datatable-column name="MOVIMIENTOS">
               <ng-template let-row="row" ngx-datatable-cell-template>
-                <button (click)="openXlModal(xlModal)" class="btn btn-danger">Movimientos</button>
+                <button (click)="openXlModal(xlModal, row.id)" class="btn btn-danger">Movimientos</button>
               </ng-template>
             </ngx-datatable-column>
 
@@ -80,11 +80,42 @@
     <!-- Modal -->
     <ng-template #xlModal let-modal>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Registros de Movimientos</h5>
         <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Modal body</p>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tipo de movimiento</th>
+                <th>Fecha de movimiento</th>
+                <th>Estado</th>
+                <th>Estado declaracion</th>
+                <th>Oficio preventivo</th>
+                <th>Oficio remision</th>
+                <th>Envio</th>
+                <th>Status</th>
+                <th>PDF</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of declaraciones; track item) {
+                <tr>
+                  <td>{{item.tipo_movimiento_id}}</td>
+                  <td>{{item.fecha_declaracion}}</td>
+                  <td>{{item.estatus}}</td>
+                  <td>{{item.estatusEnvio}}</td>
+                  <td>{{item.fecha_declaracion}}</td>
+                  <td>{{item.fecha_declaracion}}</td>
+                  <td>{{item.fecha_envio}}</td>
+                  <td>{{item.fecha_declaracion}}</td>
+                  <td>{{item.fecha_declaracion}}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modal.close('by: close button')">Close</button>
@@ -93,35 +124,6 @@
     </ng-template>
 
     
-    <!-- Modal -->
-    <ng-template #lgModal let-modal>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('by: close button')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="modal.close('by: save button')">Save changes</button>
-      </div>
-    </ng-template>
-
-   
-    <!-- Modal -->
-    <ng-template #smModal let-modal>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="modal.close('by: close button')">Close</button>
-        <button type="button" class="btn btn-primary" (click)="modal.close('by: save button')">Save changes</button>
-      </div>
-    </ng-template>
+    
   </div>
 

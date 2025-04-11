@@ -42,3 +42,4 @@ exports.Servidor = connection_1.default.define("servidores_publicos", {
 });
 exports.Servidor.belongsTo(dependencia_1.Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });
 exports.Servidor.belongsTo(direccion_1.Direccion, { foreignKey: 'tipo_direccion', as: 'direccion' });
+//Servidor.hasMany(Declaraciones, { foreignKey: 'servidor_publico_id', as: 'declaranet-v2.declaraciones' });

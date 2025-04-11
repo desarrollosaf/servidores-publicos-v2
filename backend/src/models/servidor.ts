@@ -3,6 +3,7 @@ import sequelize from "../database/connection";
 import { Dependencia } from "./dependencia";
 import { Direccion } from "./direccion";
 import { Departamento } from "./departamento";
+import { Declaraciones } from "./declaraciones";
 
 export const Servidor = sequelize.define("servidores_publicos", {
     id: { type: DataTypes.BIGINT.UNSIGNED, primaryKey: true, autoIncrement: true },
@@ -38,3 +39,4 @@ export const Servidor = sequelize.define("servidores_publicos", {
   
 Servidor.belongsTo(Dependencia, { foreignKey: 'tipo_dependencia', as: 'dependencia' });
 Servidor.belongsTo(Direccion, { foreignKey: 'tipo_direccion', as: 'direccion' });
+//Servidor.hasMany(Declaraciones, { foreignKey: 'servidor_publico_id', as: 'declaranet-v2.declaraciones' });

@@ -21,4 +21,8 @@ export class ServidoresService {
     console.log(`${this.myAppUrl}${this.myAPIUrl}/read`, );
     return this.http.get<Servidores[]>(`${this.myAppUrl}${this.myAPIUrl}/read`);
   }
+
+  getMovimientos(id: number): Observable<any> {    
+    return this.http.get(`${this.myAppUrl}${this.myAPIUrl}/movimientos/${id}`);
+  }
 }

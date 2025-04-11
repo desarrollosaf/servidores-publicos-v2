@@ -17,12 +17,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RegistroComponent {
   rows = [];
+  declaraciones: any[] = [];
   temp: Servidores[] = []
   loadingIndicator = true;
   reorderable = true;
   ColumnMode = ColumnMode;
 
   listProduct: Servidores[] = []
+  servidorDetalle: Servidores[] = []
   public _servidorService  =  inject( ServidoresService )
 
   @ViewChild('table') table: DatatableComponent
@@ -63,22 +65,24 @@ export class RegistroComponent {
     console.log('Eliminando: ', );
   }
 
-  openXlModal(content: TemplateRef<any>) {
+  openXlModal(content: TemplateRef<any>, id: number) {
+    console.log(id)
+    this._servidorService.getMovimientos(id).subscribe({
+      next: (data) => {
+        this.declaraciones = data.declaraciones
+        console.log( this.declaraciones)
+        console.log('Movimientos recibidos:', this.servidorDetalle);
+        // Aquí puedes abrir el modal y pasarle los datos
+      },
+      error: (err) => {
+        console.error('Error al obtener movimientos:', err);
+      }
+    });
+     
     this.modalService.open(content, {size: 'xl'}).result.then((result) => {
       console.log("Modal closed" + result);
     }).catch((res) => {});
   }
 
-  openLgModal(content: TemplateRef<any>) {
-    this.modalService.open(content, {size: 'lg'}).result.then((result) => {
-      console.log("Modal closed" + result);
-    }).catch((res) => {});
-  }
-  
-  openSmModal(content: TemplateRef<any>) {
-    this.modalService.open(content, {size: 'sm'}).result.then((result) => {
-      console.log("Modal closed" + result);
-    }).catch((res) => {});
-  }
-
+ 
 }
